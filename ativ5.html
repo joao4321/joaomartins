@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+	<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+	<style>
+		*{
+			background-color: #bdbebd;
+		}
+		p {
+			font-size: 50px;
+			font-weight: bold;
+			color: #333;
+			text-align: center;
+			margin-top: 20%;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="root"></div>
+
+	<script type="text/babel">
+		class Frase extends React.Component {
+			constructor(props) {
+				super(props);
+				this.state = {
+					texto: ""
+				};
+				this.frase = "Venha estudar na FATEC!!!";
+				this.timer = null;
+			}
+
+			componentDidMount() {
+				let i = 0;
+				this.timer = setInterval(() => {
+					if (i < this.frase.length) {
+						this.setState({ texto: this.state.texto + this.frase.charAt(i) });
+						i++;
+					} else {
+						clearInterval(this.timer);
+					}
+				}, 100);
+			}
+
+			componentWillUnmount() {
+				clearInterval(this.timer);
+			}
+
+			render() {
+				return <p>{this.state.texto}</p>;
+			}
+		}
+
+		ReactDOM.render(<Frase />, document.getElementById("root"));
+	</script>
+</body>
+
+</html>
