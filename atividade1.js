@@ -1,21 +1,26 @@
-let dados = prompt('Digite algo', "");
-if(confirm('Verificar tipo de dado?'))
-{
-    if (dados >= 1 && dados <= 2147483647)
-    {
-        dados_num = parseInt(dados);
-        document.write('Number!');
-    }
-    else if (dados === "true" || dados === "false")
-    {
-        document.write('Boolean');
-    }
-    else
-    {
-        document.write('String');
-    }
-}
-else
-{
-    document.write('Obrigado por visitar essa pagina!');
-}
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+function Letreiro (){
+    const [texto, setTexto] = React.useState("");
+    const [contador, setContador] = React.useState(0);
+    const mensagem = "Venha estudar na FATEC!";
+
+    React.useEffect(() => {
+      const intervalo = setInterval(() => {
+        if (contador < mensagem.length) {
+          setTexto((prevTexto) => prevTexto + mensagem[contador]);
+          setContador((prevContador) => prevContador + 1);
+        } else {
+          clearInterval(intervalo);
+          setTimeout(() => {
+            setTexto("");
+            setContador(0);
+          }, 2000);
+        }
+      }, 200);
+      return () => clearInterval(intervalo);
+    }, [contador, mensagem]);
+
+    return <h1>{texto}</h1>;
+};
